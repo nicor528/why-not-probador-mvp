@@ -1,0 +1,143 @@
+.app-container{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* fondo */
+
+.background{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
+
+.background img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* overlay oscuro */
+
+.background::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.35);
+}
+
+/* contenido encima */
+
+.ui-layer{
+  position:absolute;
+  inset:0;
+  z-index:2;
+}
+
+/* caja pasos */
+
+.instructions{
+  position:absolute;
+  top:40px;
+  left:40px;
+
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(8px);
+
+  color:white;
+  padding:20px;
+  border-radius:12px;
+  width:260px;
+
+  font-size:14px;
+}
+
+/* panel inferior */
+
+.bottom-panel{
+  position:absolute;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+
+  display:flex;
+  align-items:center;
+  gap:30px;
+
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(10px);
+
+  padding:20px 30px;
+  border-radius:14px;
+}
+
+/* carrusel */
+
+.clothes-row{
+  display:flex;
+  gap:18px;
+}
+
+.clothes-row img{
+  width:90px;
+  height:90px;
+  object-fit:cover;
+
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.clothes-row img.selected{
+  border:3px solid white;
+}
+
+/* vista resultado */
+
+.result-screen{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  background:black;
+}
+
+.result-screen img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+/* botones resultado */
+
+.result-buttons{
+  position:absolute;
+  bottom:40px;
+  left:40px;
+
+  display:flex;
+  gap:20px;
+}
+
+.result-buttons button{
+  padding:12px 22px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:500;
+}
+
+.try-again{
+  background:white;
+}
+
+.cart{
+  background:black;
+  color:white;
+  border:1px solid white;
+}
