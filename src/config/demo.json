@@ -1,0 +1,18 @@
+{
+  "brand": "Demo Store",
+
+  "logo": "/brands/demo/logo.png",
+
+  "background": "/brands/demo/probador-light.png",
+
+  "clothes": [
+    "/brands/demo/ropa1-rb.png",
+    "/brands/demo/ropa2-rb.png",
+    "/brands/demo/ropa3-rb.png"
+  ],
+
+  "ui": {
+    "primaryColor": "#ffffff",
+    "accentColor": "#000000"
+  }
+}

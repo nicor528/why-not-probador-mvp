@@ -1,10 +1,16 @@
 import React from "react";
+import { loadBrand } from "../config/loadBrand";
 
+const brandConfig = loadBrand();
+const clothes = brandConfig.clothes;
+/*
 import ropa1 from "../assets/ropa1.jpeg";
 import ropa2 from "../assets/ropa2.jpeg";
 import ropa3 from "../assets/ropa3.jpeg";
 
-const clothes = [ropa1, ropa2, ropa3];
+const clothes = [ropa1, ropa2, ropa3];*/
+
+
 
 const ClothingCarousel = ({ selected, onSelect }) => {
 

@@ -6,7 +6,13 @@ const ai = new GoogleGenAI({
   apiKey: import.meta.env.VITE_GEMINI_API_KEY
 });
 
-export const runVirtualTryOn = async (userImageBase64, clothingAssetPath) => {
+const getMime = (base64) => {
+  if (base64.includes("image/png")) return "image/png";
+  if (base64.includes("image/webp")) return "image/webp";
+  return "image/jpeg";
+};
+
+export const runVirtualTryOn = async (userImageBase64, clothingAssetPath, backgroundPath) => {
 
   const optimizedUserImg = await resizeImage(userImageBase64);
 
@@ -21,7 +27,7 @@ export const runVirtualTryOn = async (userImageBase64, clothingAssetPath) => {
 
   const optimizedClothingImg = await resizeImage(clothingBase64);
 
-  const responseBackground = await fetch(fondo);
+  const responseBackground = await fetch(backgroundPath);
   const blobBackground = await responseBackground.blob();
 
   const backgroundBase64 = await new Promise((r) => {
@@ -33,7 +39,7 @@ export const runVirtualTryOn = async (userImageBase64, clothingAssetPath) => {
   const optimizedBackground = await resizeImage(backgroundBase64);
 
   // CAMBIO: indicamos tamaño relativo de la persona
-  const prompt = `
+  /*const prompt = `
   Eres un experto en edición fotográfica de moda.
 
   INSTRUCCIONES:
@@ -57,35 +63,75 @@ export const runVirtualTryOn = async (userImageBase64, clothingAssetPath) => {
   - La escena debe verse elegante, profesional y apropiada para un catálogo de ropa.
   - No cambiar ningun texto o elemento de la imagen de fondo.
   
+  `;*/
+  const promptBase = `
+  Eres un editor profesional de fotografía de moda para catálogo de e-commerce.
+
+  La Imagen 2 es una fotografía de producto de una prenda de moda utilizada en un catálogo comercial.
+
+  TAREA
+  Generar una escena editorial de moda combinando tres imágenes.
+
+  Imagen 1: modelo en pose neutra.
+  Imagen 2: prenda de moda (producto).
+  Imagen 3: escenario de tienda con pasarela.
+
+  Instrucciones:
+
+  - Mantener la pose exacta del modelo de la Imagen 1.
+  - Generar una fotografía donde el modelo lleva una prenda idéntica al producto mostrado en la Imagen 2.
+  - Colocar al modelo en el centro de la pasarela de la Imagen 3.
+  - Ajustar iluminación, perspectiva y escala para que parezca una fotografía real tomada en ese lugar.
+
+  Reglas:
+
+  - Mantener diseño, textura y color de la prenda.
+  - No modificar el escenario.
+  - No agregar otros elementos.
+  - Estilo: fotografía editorial de catálogo profesional.
+  `;
+
+  const prompt = `
+    La Imagen 2 es una fotografía de producto de una prenda de moda para catálogo comercial.
+
+    ${promptBase}
   `;
 //- No agregar elementos que no estén en las imágenes originales.
 //  - No agregar prendas adicionales ni accesorios.
+
+  if (!optimizedUserImg || !optimizedClothingImg || !optimizedBackground) {
+    throw new Error("Alguna imagen llegó vacía");
+  }
+
   try {
 
-    const contents = [
-      { text: prompt },
+   const contents = [
+    { text: prompt },
 
-      {
-        inlineData: {
-          data: optimizedUserImg.split(",")[1],
-          mimeType: "image/jpeg"
-        }
-      },
-
-      {
-        inlineData: {
-          data: optimizedClothingImg.split(",")[1],
-          mimeType: "image/jpeg"
-        }
-      },
-
-      {
-        inlineData: {
-          data: optimizedBackground.split(",")[1],
-          mimeType: "image/jpeg"
-        }
+    // PRODUCTO PRIMERO
+    {
+      inlineData: {
+        data: optimizedClothingImg.split(",")[1],
+        mimeType: "image/jpeg"
       }
-    ];
+    },
+
+    // MODELO
+    {
+      inlineData: {
+        data: optimizedUserImg.split(",")[1],
+        mimeType: "image/jpeg"
+      }
+    },
+
+    // FONDO
+    {
+      inlineData: {
+        data: optimizedBackground.split(",")[1],
+        mimeType: "image/jpeg"
+      }
+    }
+  ];
 
     const response = await ai.models.generateContent({
       model: "gemini-3.1-flash-image-preview",
@@ -96,7 +142,7 @@ export const runVirtualTryOn = async (userImageBase64, clothingAssetPath) => {
           aspectRatio: "16:9",
 
           // CAMBIO: reducimos tamaño de imagen
-          imageSize: "768x768"
+          //imageSize: "768x768"
         }
       }
     });

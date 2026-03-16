@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import ClothingCarousel from "./components/ClothingCarousel";
 import UploadPanel from "./components/UploadPanel";
 import { runVirtualTryOn } from "./services/geminiService";
+import { loadBrand } from "./config/loadBrand";
 
-import fondo from "./assets/fondo-tienda.png";
+const brandConfig = loadBrand();
+
+//import fondo from "./assets/fondo-tienda.png";
+const fondo = brandConfig.background;
 import "./styles/app.css";
 
 const App = () => {
@@ -29,7 +33,11 @@ const App = () => {
 
       try {
 
-        const result = await runVirtualTryOn(userImage, selectedClothing);
+        const result = await runVirtualTryOn(
+          userImage,
+          selectedClothing,
+          brandConfig.background
+        );
 
         setGeneratedScene(result);
 

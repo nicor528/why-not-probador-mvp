@@ -1,0 +1,18 @@
+{
+  "brand": "WhyNotBasics",
+
+  "logo": "/brands/whynotbasics/logo.png",
+
+  "background": "/brands/whynotbasics/fondo.jpeg",
+
+  "clothes": [
+    "/brands/whynotbasics/ropa1.jpeg",
+    "/brands/whynotbasics/ropa2.jpeg",
+    "/brands/whynotbasics/ropa3.jpeg"
+  ],
+
+  "ui": {
+    "primaryColor": "#ffffff",
+    "accentColor": "#111111"
+  }
+}
