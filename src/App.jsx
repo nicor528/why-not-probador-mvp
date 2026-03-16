@@ -101,7 +101,7 @@ const App = () => {
 
           <ol>
             <li> Elegir tu prenda</li>
-            <li> Tomarte una foto en pose A</li>
+            <li> Tomarte una foto de cuerpo completo desde el frente</li>
             <li> Subir la foto</li>
             <li> Esperar</li>
           </ol>
