@@ -79,10 +79,12 @@ export const runVirtualTryOn = async (userImageBase64, clothingAssetPath, backgr
   Instrucciones:
 
   - Mantener la pose exacta del modelo de la Imagen 1.
+  - Usa la prenda de la Imagen 2 como referencia de producto de moda y aplícala naturalmente al modelo.
   - Generar una fotografía donde el modelo lleva una prenda idéntica al producto mostrado en la Imagen 2.
   - Colocar al modelo en el centro de la pasarela de la Imagen 3.
   - Ajustar iluminación, perspectiva y escala para que parezca una fotografía real tomada en ese lugar.
-
+  
+  
   Reglas:
 
   - Mantener diseño, textura y color de la prenda.
