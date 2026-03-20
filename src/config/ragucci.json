@@ -1,0 +1,18 @@
+{
+  "brand": "Ragucci",
+
+  "logo": "/brands/ragucci/logo.png",
+
+  "background": "/brands/ragucci/probador.png",
+
+  "clothes": [
+    "/brands/ragucci/ropa1.jpeg",
+    "/brands/ragucci/ropa2.jpeg",
+    "/brands/ragucci/ropa3.jpeg"
+  ],
+
+  "ui": {
+    "primaryColor": "#ffffff",
+    "accentColor": "#111111"
+  }
+}

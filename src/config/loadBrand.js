@@ -1,9 +1,11 @@
 import demo from "./demo.json";
 import whynot from "./whynotbasics.json";
+import ragucci from "./ragucci.json";
 
 const brands = {
   demo,
-  whynotbasics: whynot
+  whynotbasics: whynot,
+  ragucci: ragucci
 };
 
 export const loadBrand = () => {
